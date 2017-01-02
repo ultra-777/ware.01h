@@ -1,0 +1,12 @@
+﻿.colors-repeating-linear-gradient (@direction, @color1, @size1, @color2, @size2, @color3, @size3, @color4, @size4){
+	background-image: -webkit-repeating-linear-gradient(@direction, @color1 @size1, @color2 @size2, @color3 @size3, @color4 @size4);
+	background-image: -moz-repeating-linear-gradient(@direction, @color1 @size1, @color2 @size2, @color3 @size3, @color4 @size4);
+	background-image: -o-repeating-linear-gradient(@direction, @color1 @size1, @color2 @size2, @color3 @size3, @color4 @size4);
+	background-image: repeating-linear-gradient(@direction, @color1 @size1, @color2 @size2, @color3 @size3, @color4 @size4);
+}
+
+.decoration-underline (@color) {
+	text-decoration: underline;
+	-moz-text-decoration-color: @color;
+	text-decoration-color: @color;
+}

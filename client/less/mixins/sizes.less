@@ -1,0 +1,29 @@
+﻿.size-fixed(@width, @height) {
+	width: @width;
+	height: @height;
+}
+
+.size-fixed-not-less(@width, @height) {
+	min-height: @width;
+	min-width: @height;
+}
+
+.size-full-relative() {
+	.size-fixed(100%, 100%);
+}
+
+.size-background(@width, @height) {
+	-moz-background-size: @width @height;
+	-o-background-size: @width @height;
+	-webkit-background-size: @width @height;
+	-ms-background-size: @width @height;
+	background-size: @width @height;
+}
+
+.size-box-absolute(@top, @right, @bottom, @left) {
+	position: absolute;
+	left: @left;
+	top: @top;
+	right: @right;
+	bottom: @bottom;
+}

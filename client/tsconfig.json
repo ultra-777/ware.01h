@@ -1,0 +1,45 @@
+{
+    "compilerOptions": {
+        "baseUrl": "",
+        "target": "es5",
+        "module": "es2015",
+        "moduleResolution": "node",
+        "declaration": true,
+        "noImplicitAny": false,
+        "sourceMap": true,
+        "mapRoot": "",
+        "emitDecoratorMetadata": true,
+        "experimentalDecorators": true,
+        "outDir": "./build",
+        "rootDir": "./",
+        "skipLibCheck": true,
+        "typeRoots": [
+            "./"
+        ],
+        "types": [
+          "node"
+        ],
+        "lib": [
+          "dom",
+          "es2015"
+        ]
+    },
+    "compileOnSave": false,
+    "buildOnSave": false,
+    "exclude": [
+        "/aot/",
+        "**/*.ngfactory.ts",
+        "**/*.shim.ts",
+        "/app/main*.ts",
+        "/app/polyfill.ts",
+        "./node_modules"
+    ],
+    "awesomeTypescriptLoaderOptions": {
+        "forkChecker": true,
+        "useWebpackText": true
+    },
+    "angularCompilerOptions": {
+        "genDir": "./aot",
+        "entryModule": "./root.module#RootModule"
+    }
+}
