@@ -27,7 +27,7 @@
 	],
 
 	"files": [
-		"./app/root.module.ts",
+		"./app/module/default.module.ts",
 		"./app/main.ts"
 	],
 

@@ -10,6 +10,7 @@
 			libs,
 			original,
             mainFileName,
+			modulesFolderName,
 			wwwRoot = this;
 
 		var targetRoot = './dist',
@@ -41,6 +42,7 @@
 
         rootFolderName = 'client';
         mainFileName = 'main.ts';
+		modulesFolderName = 'modules';
         sourcesRoot = './' + rootFolderName;
         node_modules = './node_modules';
         libs = './libs';
@@ -58,6 +60,7 @@
 			root: temp,
 			libs: temp + '/libs',
 			application: temp + '/app',
+			modules: temp + '/app/' + modulesFolderName,
 			ts: [
                 temp + '/app/**/*.ts'
 			],

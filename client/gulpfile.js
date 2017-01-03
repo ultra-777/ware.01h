@@ -60,10 +60,57 @@
         }
     }
 
+	function initBuildEnvironment(){
+		if (process.argv && process.argv.length > 0){
+			process.argv.every(function(element, index, array) {
+				var match = common.buildRegexp.exec(element);
+				if (match) {
+					var argument = match[common.buildMatchIndex];
+					if (argument) {
+						process.env.BUILD = argument.toLowerCase();
+						return false;
+					}
+				}
+				return true;
+			});
+		}
+	}
+
     function ensureTargetFilesDirectory() {
 	    var normalPath = nodePath.normalize(config.target.files);
         ensureCreateDirectory(normalPath);
     }
+
+	function applyBuildModuleTemplate(postfix) {
+		return through.obj(
+			function (chunk, enc, cb) {
+
+				var currentStream = this;
+				var buildConfiguration = process.env.BUILD;
+				if (chunk.isNull() || !buildConfiguration) {
+					currentStream.push(chunk);
+					return cb();
+				}
+
+				if (chunk.isBuffer()) {
+					var source = chunk.contents.toString();
+					var defaultModuleName = common.targetModulePrefix + postfix;
+					var regexp = new RegExp(defaultModuleName, 'i');
+					var match = regexp.exec(source);
+					if (match) {
+						var newBuildModule = buildConfiguration + postfix;
+
+						source = source.replace(defaultModuleName, newBuildModule);
+						console.log('build module: ' + defaultModuleName + ' => ' + newBuildModule);
+					}
+
+					chunk.contents = new Buffer(source);
+					currentStream.push(chunk);
+					return cb();
+				}
+				cb();
+			});
+	}
 
     function handleSwapExpression(regExp, folder, relativePath, sourceContent) {
         var match;
@@ -93,27 +140,6 @@
         var relativePath = sourcePath.replace(__dirname, '');
         sourceContent = handleSwapExpression(sourceRegExp, folder, relativePath, sourceContent);
         sourceContent = handleSwapExpression(sourceRegExp2, folder, relativePath, sourceContent);
-        /*
-        var match;
-        while ((match = sourceRegExp.exec(sourceContent)) !== null) {
-            var sourcePath = match[matchPathIndex];
-            var currentPath = nodePath.join(folder, sourcePath);
-            var hash = getFileHash(currentPath);
-            if (hash) {
-                var newFileName = hash + '.' + match[matchExtensionIndex];
-                var newFilePath = nodePath.join(config.target.files, newFileName);
-                var newRelativePath = './' + config.target.filesFolderName + '/' + newFileName;
-                if (!nodeFs.existsSync(newFilePath)) {
-                    nodeFs.writeFileSync(newFilePath, nodeFs.readFileSync(currentPath));
-                }
-                sourceContent = sourceContent.replace(sourcePath, newRelativePath);
-                console.log(relativePath + ': ' + sourcePath + ' => ' + newRelativePath);
-            }
-            else {
-                console.log(relativePath + ': ' + sourcePath + ' => NOT FOUND');
-            }
-        }
-        */
         return sourceContent;
     }
 
@@ -199,6 +225,7 @@
         	taskApplicationMergeTemplates = 'application-merge-templates.' + uniqueKey,
             taskApplicationClearTemplates = 'application-clear-templates.' + uniqueKey,
             taskMoveTsConfig = 'move-ts-config.' + uniqueKey,
+			taskUpdateMainWithBuild = 'update-main-with-build.' + uniqueKey,
         	taskNgc = 'ngc.' + uniqueKey,
         	taskTsLint = 'tsLint.' + uniqueKey,
             taskSwitchMode = 'application-switch-mode.' + uniqueKey,
@@ -210,11 +237,13 @@
 
 		gulp.task(taskInitDevelopmentEnvironment, function(cb){
             process.env.ENV_NODE = common.ENV_DEVELOPMENT;
+			initBuildEnvironment();
             cb();
         });
 
         gulp.task(taskInitProductionEnvironment, function(cb){
             process.env.ENV_NODE = common.ENV_PRODUCTION;
+			initBuildEnvironment();
             cb();
         });
 
@@ -310,7 +339,7 @@
         });
 
         gulp.task(taskApplicationClearTemplates, function () {
-            // mergeTemplates(true);
+            mergeTemplates(true);
             console.log('');
             return gulp.src(config.temp.application + '/**/*.js')
                 .pipe(clearCompiledTemplates())
@@ -318,8 +347,18 @@
         });
 
         gulp.task(taskMoveTsConfig, function () {
-            return gulp.src(config.common.rootFolderName + '/tsconfig-aot.json').pipe(gulp.dest(config.temp.root));
-        });
+			console.log();
+			return gulp.src(config.common.rootFolderName + '/tsconfig-aot.json')
+				.pipe(applyBuildModuleTemplate(common.targetModulePostfix))
+				.pipe(gulp.dest(config.temp.root));
+		});
+
+		gulp.task(taskUpdateMainWithBuild, function () {
+			console.log();
+			return gulp.src(config.temp.application + '/' + config.common.mainFileName)
+				.pipe(applyBuildModuleTemplate(common.targetModuleFactoryPostfix))
+				.pipe(gulp.dest(config.temp.application));
+		});
 
         gulp.task(taskNgc, function (cb) {
             var cmd = os.platform() === 'win32' ?
@@ -436,6 +475,7 @@
                 taskClearTemp,
                 taskApplicationMergeTemplates,
                 taskMoveTsConfig,
+				taskUpdateMainWithBuild,
                 taskSwitchMode,
                 taskNgc,
                 taskApplicationClearTemplates,
@@ -459,6 +499,7 @@
                 taskClearTemp,
                 taskApplicationMergeTemplates,
                 taskMoveTsConfig,
+				taskUpdateMainWithBuild,
                 taskSwitchMode,
                 taskNgc,
                 taskApplicationClearTemplates,
@@ -477,6 +518,7 @@
                 taskClearTemp,
                 taskApplicationMergeTemplates,
                 taskMoveTsConfig,
+				taskUpdateMainWithBuild,
                 taskNgc,
                 taskApplicationClearTemplates,
                 taskRollup,
@@ -494,6 +536,7 @@
                 taskClearTemp,
                 taskApplicationMergeTemplates,
                 taskMoveTsConfig,
+				taskUpdateMainWithBuild,
                 taskSwitchMode,
                 taskNgc,
                 taskApplicationClearTemplates,
@@ -510,6 +553,7 @@
                 taskClearTemp,
                 taskApplicationMergeTemplates,
                 taskMoveTsConfig,
+				taskUpdateMainWithBuild,
                 taskSwitchMode,
                 taskNgc,
                 taskApplicationClearTemplates,
