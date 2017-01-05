@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Ware.01",
   "scripts": {
-    "start": "node server/index",
+    "start": "node dist/server/run",
     "postinstall": "gulp production",
     "typings": "typings",
     "ngc": "ngc -p tsconfig-aot.json",
