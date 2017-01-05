@@ -2,7 +2,7 @@
 (function () {
 	'use strict';
 
-	var common = require('./config.js'),
+	var common = require('./../common/config.js'),
         gulp = require('gulp'),
 		del = require('del'),
 		tsLint = require('gulp-tslint'),
@@ -34,14 +34,8 @@
         templateRegExp = /template:\s+"(.+)"/ig,
         matchContentIndex = 1,
         process = require('process'),
+		uuid = require('uuid'),
 		config = require('./gulp.config.js');
-
-    function getUuid() {
-        return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-            var r = Math.random()*16|0, v = c == 'x' ? r : (r&0x3|0x8);
-            return v.toString(16);
-        });
-    };
 
 	function getFileHash(filePath){
         return nodeFs.existsSync(filePath) ? md5File.sync(filePath) : '';
@@ -59,22 +53,6 @@
             nodeFs.mkdirSync(normalPath);
         }
     }
-
-	function initBuildEnvironment(){
-		if (process.argv && process.argv.length > 0){
-			process.argv.every(function(element, index, array) {
-				var match = common.buildRegexp.exec(element);
-				if (match) {
-					var argument = match[common.buildMatchIndex];
-					if (argument) {
-						process.env.BUILD = argument.toLowerCase();
-						return false;
-					}
-				}
-				return true;
-			});
-		}
-	}
 
     function ensureTargetFilesDirectory() {
 	    var normalPath = nodePath.normalize(config.target.files);
@@ -213,7 +191,7 @@
 
 
     function initGulp() {
-		var uniqueKey = getUuid(),
+		var uniqueKey = uuid.v4(),
             taskInitDevelopmentEnvironment = 'init-development-environment.' + uniqueKey,
             taskInitProductionEnvironment = 'init-production-environment.' + uniqueKey,
 			taskCleanAppJs = 'clean-app-js.' + uniqueKey,
@@ -224,7 +202,7 @@
             taskClearTemplates = 'clear-templates.' + uniqueKey,
         	taskApplicationMergeTemplates = 'application-merge-templates.' + uniqueKey,
             taskApplicationClearTemplates = 'application-clear-templates.' + uniqueKey,
-            taskMoveTsConfig = 'move-ts-config.' + uniqueKey,
+            taskMoveTsConfig = 'move-ts-config__.' + uniqueKey,
 			taskUpdateMainWithBuild = 'update-main-with-build.' + uniqueKey,
         	taskNgc = 'ngc.' + uniqueKey,
         	taskTsLint = 'tsLint.' + uniqueKey,
@@ -237,13 +215,13 @@
 
 		gulp.task(taskInitDevelopmentEnvironment, function(cb){
             process.env.ENV_NODE = common.ENV_DEVELOPMENT;
-			initBuildEnvironment();
+            common.initBuildEnvironment();
             cb();
         });
 
         gulp.task(taskInitProductionEnvironment, function(cb){
             process.env.ENV_NODE = common.ENV_PRODUCTION;
-			initBuildEnvironment();
+			common.initBuildEnvironment();
             cb();
         });
 
@@ -374,8 +352,8 @@
 
         gulp.task(taskWebpackDevelopment, function (cb) {
             var cmd = os.platform() === 'win32' ?
-                'node_modules\\.bin\\webpack --config ' + config.common.rootFolderName + '\\webpack.aot.config.js' :
-                './node_modules/.bin/webpack --config ' + config.common.rootFolderName + '/webpack.aot.config.js';
+                'node_modules\\.bin\\webpack --config__ ' + config.common.rootFolderName + '\\webpack.aot.config.js' :
+                './node_modules/.bin/webpack --config__ ' + config.common.rootFolderName + '/webpack.aot.config.js';
 
             childProc(cmd, function (err, stdout, stderr) {
                 console.log(stdout);
@@ -387,7 +365,7 @@
         gulp.task(taskRollup, function (cb) {
             var cmd = os.platform() === 'win32' ?
                 'node_modules\\.bin\\rollup -c ' + config.common.rootFolderName + '\\rollup.config.js' :
-                './rollup-config/.bin/rollup -c ' + config.common.rootFolderName + '/rollup.config.js';
+                './rollup-config__/.bin/rollup -c ' + config.common.rootFolderName + '/rollup.config.js';
 
             childProc(cmd, function (err, stdout, stderr) {
                 console.log(stdout);

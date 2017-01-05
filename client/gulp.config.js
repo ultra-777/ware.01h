@@ -8,13 +8,12 @@
 			node_modules,
 			scripts,
 			libs,
-			original,
             mainFileName,
 			modulesFolderName,
+			commonConfig = require('../common/config'),
 			wwwRoot = this;
 
-		var targetRoot = './dist',
-			targetFilesFolderName = 'files',
+		var targetFilesFolderName = 'files',
             targetApplicationFileName = 'application.js',
             targetApplicationMapFileName = 'application.js.map',
             targetApplicationStylesFileName = 'application.css',
@@ -23,8 +22,8 @@
 			indexFileName = 'index.html';
 
 		wwwRoot.target = {
-			root: targetRoot,
-			files: targetRoot + '/' + targetFilesFolderName,
+			root: commonConfig.targetRoot,
+			files: commonConfig.targetRoot + '/' + targetFilesFolderName,
 			filesFolderName: targetFilesFolderName,
 			applicationFileName: targetApplicationFileName,
 			applicationMapFileName: targetApplicationMapFileName,
@@ -34,10 +33,7 @@
 			indexFileName: indexFileName,
 			libsFolderName: 'libs',
 			appFolderName: 'app',
-			fontFolderName: 'fonts',
-			getFontFolderPath: function () {
-				return this.root + '/' + this.fontFolderName;
-			}
+			fontFolderName: 'fonts'
 		};
 
         rootFolderName = 'client';
@@ -48,13 +44,6 @@
         libs = './libs';
         scripts = '../scripts';
 		temp = './temp';
-
-		wwwRoot.original = {
-			root: './original',
-			getDataToRestore: function () {
-				return [this.root + '/**/*.js', this.root + '/**/*.map'];
-			},
-		};
 
 		wwwRoot.temp = {
 			root: temp,

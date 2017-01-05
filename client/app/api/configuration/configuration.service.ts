@@ -1,8 +1,8 @@
-﻿import {Observable} from 'rxjs/Observable';
+﻿import { Observable } from 'rxjs/Observable';
 import * as HH from '../../common/http-handler';
-import {ApplicationSettingsDto} from './application-settings.dto';
+import { ApplicationSettingsDto } from './application-settings.dto';
 
-export {ApplicationSettingsDto} from './application-settings.dto';
+export { ApplicationSettingsDto } from './application-settings.dto';
 export class LanguageMap { [key: string]: string };
 
 export class ConfigurationService {

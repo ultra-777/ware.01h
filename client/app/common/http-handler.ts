@@ -19,7 +19,7 @@ import 'rxjs/add/operator/map';
 
 export class JsonParserEx {
 
-	public static parse2Lower<T>(text): T {
+	public static parse2lower<T>(text): T {
 		let rawData = JSON.parse(text);
 		if (!rawData)
 			return null;
@@ -143,7 +143,7 @@ export class HttpHandler {
 						let text = res.text();
 						if (text)
 							return checkResultJson
-								? JsonParserEx.parse2Lower<T>(res.text())
+								? JsonParserEx.parse2lower<T>(res.text())
 								: res.json();
 						else
 							return null;
@@ -197,11 +197,6 @@ export class HttpHandler {
 				}
 			]);
 			let http = injector.get(Http);
-
-
-
-			// let injector = ReflectiveInjector.resolveAndCreate([HttpModule, Http, [XHRBackend, BaseRequestOptions]]);
-			// let http = injector.get(Http);
 			if (!http)
 				throw new Error('http has not been injected');
 			HttpHandler._http = http;

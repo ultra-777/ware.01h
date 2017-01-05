@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    var config = require('./config.js'),
+    var config = require('../common/config.js'),
         rollup = require('rollup'),
         nodeResolve = require('rollup-plugin-node-resolve'),
         commonjs = require('rollup-plugin-commonjs'),
@@ -23,7 +23,7 @@
 
     module.exports = {
         entry: './temp/app/main.js',
-        dest: './dist/application.js',
+        dest: config.targetRoot + '/application.js',
         sourceMap: (process.env.ENV_NODE === config.ENV_DEVELOPMENT) ? true : false,
         format: 'iife',
         context: 'window',
