@@ -1,15 +1,12 @@
 'use strict';
 
-var configuration = require('./../controllers/configuration');
-
-var core = require('./../controllers/core');
-var explorer = require('./../controllers/explorer');
-var repository = require('./../controllers/repository');
-
-var security = require('./../controllers/security');
-var smtp = require('./../controllers/smtp');
-
- var update = require('./../controllers/update');
+var configuration = require('../controllers/configuration');
+var core = require('../controllers/core');
+var explorer = require('../controllers/explorer');
+var repository = require('../controllers/repository');
+var security = require('../controllers/security');
+var smtp = require('../controllers/smtp');
+var update = require('../controllers/update');
 
 
 module.exports = function(app) {

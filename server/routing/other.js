@@ -1,6 +1,6 @@
 'use strict';
 
-var configuration = require('./../controllers/configuration');
+var configuration = require('../controllers/configuration');
 
 module.exports = function(app) {
 

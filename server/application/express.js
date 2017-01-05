@@ -11,13 +11,13 @@ var express = require('express'),
 	methodOverride = require('method-override'),
 	cookieParser = require('cookie-parser'),
 	helmet = require('helmet'),
+	nodeFs = require('fs'),
 	passport = require('passport'),
 	flash = require('connect-flash'),
 	config = require('../common/config'),
 	consolidate = require('consolidate'),
 	path = require('path'),
 	util = require('../common/util'),
-	routing = require('../routing/default'),
 	store = require('./store')({
 		session: session,
 		options: {
@@ -90,8 +90,12 @@ module.exports = function() {
 	var target = path.join(__dirname,'../../client');
 	app.use(express.static(target));
 
-	if (routing){
-		routing(app);
+	var routingPath = path.join(__dirname,'../routing.js');
+	if (nodeFs.existsSync(routingPath)) {
+		var routing = require('../routing');
+		if (routing) {
+			routing(app);
+		}
 	}
 
 	return app;

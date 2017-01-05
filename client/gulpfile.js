@@ -202,7 +202,7 @@
             taskClearTemplates = 'clear-templates.' + uniqueKey,
         	taskApplicationMergeTemplates = 'application-merge-templates.' + uniqueKey,
             taskApplicationClearTemplates = 'application-clear-templates.' + uniqueKey,
-            taskMoveTsConfig = 'move-ts-config__.' + uniqueKey,
+            taskMoveTsConfig = 'move-ts-config.' + uniqueKey,
 			taskUpdateMainWithBuild = 'update-main-with-build.' + uniqueKey,
         	taskNgc = 'ngc.' + uniqueKey,
         	taskTsLint = 'tsLint.' + uniqueKey,
