@@ -1,0 +1,11 @@
+﻿<div #visible class="visible-container">
+	<div class="container-header" (mousedown)="onMouseDown($event)" *ngIf="title">
+		<div class="header-title" title="{{title}}">{{title}}</div>
+		<div class="header-actions">
+			<div class="action-close" title="{{configuration?.language?.close}}" (click)="onClose($event)"></div>
+		</div>
+	</div>
+	<div [ngClass]="{'container-content': true, 'full-view': !title, 'is-dragging': isDragging}">
+		<div #content class="hidden-node"></div>
+	</div>
+</div>

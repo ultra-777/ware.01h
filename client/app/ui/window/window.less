@@ -1,0 +1,99 @@
+﻿@import '../../../less/mixins';
+
+@window-header-height: 24px;
+@window-area-vertical-delimiter: 2px;
+@window-header-background: #92a6ca;
+@window-header-border-color: #6080b4;
+@window-container-border-color: #7a7a7a;
+@window-border-radius: 3px;
+@window-area-box-shadow: 2px 2px 7px #777;
+
+.modal-container {
+	position: fixed;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	opacity: 0;
+	background: rgba(0,0,0,.05);
+	display: block;
+	border: none;
+	border-radius: 4px;
+	transition: opacity .3s ease-in-out;
+
+	.visible-container {
+		position: absolute;
+		background: transparent;
+		display: block;
+		border: none;
+		border-radius: 4px;
+
+		.container-header {
+			position: absolute;
+			height: @window-header-height;
+			width: 100%;
+			.flexbox-display();
+			color: white;
+			align-items: center;
+			border: solid 1px @window-header-border-color;
+			padding: 0;
+			font-size: 14px;
+			white-space: nowrap;
+			box-sizing: border-box;
+			box-shadow: @window-area-box-shadow;
+			background: @window-header-background;
+			border-radius: @window-border-radius @window-border-radius 0 0;
+
+			.header-title {
+				display: inline-block;
+				overflow: hidden;
+				text-overflow: ellipsis;
+				padding: 0 2px 2px 10px;
+				cursor: default;
+				width: 100%;
+			}
+
+			.header-actions {
+				display: inline-block;
+				padding: 0 4px 0 2px;
+
+				.action-close {
+					cursor: pointer;
+					width: 16px;
+					height: 16px;
+					background-position-y: 1px;
+					background-image: url('./close.png');
+
+					&:hover {
+						box-shadow: 0 0 10px #fff;
+					}
+				}
+			}
+		}
+
+		.container-content {
+			position: static;
+			padding: 2px;
+			margin-top: @window-header-height + @window-area-vertical-delimiter;
+			display: inline-block;
+			border: solid 1px @window-container-border-color;
+			border-radius: 0 0 @window-border-radius @window-border-radius;
+			box-shadow: @window-area-box-shadow;
+			background: white;
+
+			.hidden-node {
+				display: none;
+			}
+
+			&.full-view {
+				margin-top: 0;
+				border-top-width: 1px;
+				border-radius: @window-border-radius;
+			}
+
+			&.is-dragging {
+				opacity: .2;
+			}
+		}
+	}
+}

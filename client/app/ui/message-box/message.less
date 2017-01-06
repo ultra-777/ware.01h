@@ -1,0 +1,41 @@
+﻿@import '../../../less/mixins';
+
+@message-box-min-height: 100px;
+@message-box-max-height: 500px;
+@message-box-min-width: 200px;
+@message-box-max-width: 500px;
+
+.message-box-component {
+	.flexbox-display();
+	.flexbox-direction(column);
+	.flexbox-align-items(stretch);
+	min-width: @message-box-min-width;
+	min-height: @message-box-min-height;
+	max-height: @message-box-max-height;
+	max-width: @message-box-max-width;
+	overflow: auto;
+
+	.message {
+		.flexbox-grow(1);
+		padding: 10px;
+	}
+
+	.actions-area {
+		.flexbox-grow(0);
+		.flexbox-display();
+		.flexbox-direction(row);
+		.flexbox-justify-content(center);
+		padding: 10px;
+
+		button {
+			padding: 2px 12px;
+			line-height: 1em;
+			font-size: 12px;
+			height: 26px;
+		}
+
+		.settings-action {
+			margin: 0 2px;
+		}
+	}
+}

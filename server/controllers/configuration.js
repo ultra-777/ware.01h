@@ -1,3 +1,4 @@
+var localization = require('../localization/service');
 
 function applicationSettingsDto() {
 	this.version = '';
@@ -12,8 +13,6 @@ exports.applicationSettings = function(req, res, next) {
 };
 
 exports.language = function(req, res, next) {
-	// console.log('language.request.culture: ' + req.query.culture);
-	var dictionary = {};
-	dictionary.qwerty = 'QWERTY';
-	res.jsonp(dictionary);
+	var culture = req.query ? req.query.culture : undefined;
+	res.jsonp(localization.load(culture));
 };

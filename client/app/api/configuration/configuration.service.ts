@@ -12,6 +12,6 @@ export class ConfigurationService {
 	}
 
 	public static getLanguage(culture: string): Observable<HH.ResultInfo<LanguageMap>> {
-		return HH.HttpHandler.get<LanguageMap>(window.location.origin + '/configuration/language', { culture: culture} );
+		return HH.HttpHandler.get<LanguageMap>(window.location.origin + '/configuration/localization', { culture: culture} );
 	}
 }

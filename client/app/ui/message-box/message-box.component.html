@@ -1,0 +1,8 @@
+﻿<div class="message" [innerHTML]="message">
+</div>
+<div class="actions-area">
+	<button class="btn btn-default settings-action" *ngIf="buttons.ok" (click)="ok()" type="button">{{language.ok}}</button>
+	<button class="btn btn-default settings-action" *ngIf="buttons.yes" (click)="yes()" type="button">{{language.yes}}</button>
+	<button class="btn btn-default settings-action" *ngIf="buttons.no" (click)="no()" type="button">{{language.no}}</button>
+	<button class="btn btn-default settings-action" *ngIf="buttons.cancel" (click)="cancel()" type="button">{{language.cancel}}</button>
+</div>

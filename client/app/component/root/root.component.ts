@@ -3,10 +3,12 @@
 	Component,
 	OnInit,
 	OnDestroy,
-	ViewEncapsulation
+	ViewEncapsulation,
+	ViewContainerRef
 } from '@angular/core';
-import {BaseComponent} from './common/base-component';
-import {ConfigurationService} from  './common/configuration/configuration.service';
+import { BaseComponent } from '../../common/base-component';
+import { ConfigurationService } from  '../../common/configuration/configuration.service';
+import * as Modal from '../../ui/window/index';
 
 @Component({
 	selector: 'root',
@@ -24,6 +26,8 @@ export class RootComponent extends BaseComponent implements OnInit, OnDestroy {
 
 	constructor(
 		injector: Injector,
+		private _windowService: Modal.WindowService,
+		private _viewContainerRef: ViewContainerRef,
 		private _config: ConfigurationService
 	) {
 		super(injector);
@@ -33,6 +37,7 @@ export class RootComponent extends BaseComponent implements OnInit, OnDestroy {
 	}
 
 	ngOnInit() {
+		this._windowService.initializeRoot(this._viewContainerRef);
 	}
 
 	ngOnDestroy() {

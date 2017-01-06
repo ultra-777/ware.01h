@@ -12,7 +12,7 @@ var update = require('../controllers/update');
 module.exports = function(app) {
 
 	app.route('/configuration/applicationSettings').get(configuration.applicationSettings);
-	app.route('/configuration/language').get(configuration.language);
+	app.route('/configuration/localization').get(configuration.language);
 
 
 	app.route('/home/userInfo').get(core.userInfo);

@@ -1,4 +1,4 @@
-import { NgModule, ErrorHandler, LOCALE_ID } from '@angular/core';
+import { NgModule, ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { FormsModule }	from '@angular/forms';
@@ -7,9 +7,13 @@ import { HttpModule } from '@angular/http';
 import 'rxjs/add/operator/map';
 
 import { ConfigurationService } from '../common/configuration/configuration.service';
-import { RootComponent } from '../root.component';
+import { RootComponent } from '../component/root/root.component';
 import { ConfigResolver } from '../common/configuration/config.resolver';
 import { RootExceptionHandler } from '../root-exception-handler';
+
+import * as Modal from '../ui/window/index';
+import * as MessageBox from '../ui/message-box/index';
+import * as DefaultView from '../component/default-view/index';
 
 
 
@@ -17,6 +21,7 @@ const appRoutes: Routes = [
     /*
     { path: 'portal/:mode', component: PortalComponent, resolve: { config: ConfigResolver } },
     */
+	{ path: '', component: DefaultView.DefaultViewComponent, resolve: { config: ConfigResolver } },
 ];
 
 
@@ -29,16 +34,24 @@ const appRoutes: Routes = [
 		RouterModule.forRoot(appRoutes)
 	],
 	entryComponents: [
+		Modal.DECLARATION,
+		MessageBox.DECLARATION
 	],
 	providers: [
 		ConfigurationService,
 		ConfigResolver,
 		{ provide: ErrorHandler, useClass: RootExceptionHandler },
+		Modal.PROVIDER,
+		DefaultView.PROVIDER,
+		MessageBox.PROVIDER
 	],
 	declarations: [
-		RootComponent
+		RootComponent,
+		Modal.DECLARATION,
+		DefaultView.DECLARATION,
+		MessageBox.DECLARATION
 	],
-	bootstrap: [RootComponent]
+	bootstrap: [ RootComponent ]
 })
 export class RootModule {
 	constructor() {
