@@ -1,1 +1,4 @@
-<h1 (click)="onClick($event)">Default view</h1>
+<h1>Default view</h1>
+<h1 (click)="onMessageBoxClick($event)">Message Box</h1>
+<h1 (click)="onPreloaderClick($event)">Preloader</h1>
+<preloader-component [title]="preloaderTitle" *ngIf="isLoading"></preloader-component>

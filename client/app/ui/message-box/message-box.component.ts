@@ -1,21 +1,19 @@
 ﻿import {
 	Injector,
-	NgZone,
 	Component,
 	OnInit,
 	OnDestroy,
 	ElementRef,
 	ViewEncapsulation
 } from '@angular/core';
-import {DomSanitizer, SafeHtml} from '@angular/platform-browser';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 import 'rxjs/add/operator/map';
-import {Subscription, Observable, ReplaySubject} from 'rxjs/Rx';
-import {BaseComponent} from '../../common/base-component';
-import {ContentComponent} from '../window/window.model';
+import { BaseComponent } from '../../common/base-component';
+import { ContentComponent } from '../window/window.model';
 import * as Model from './message-box.model';
 
-class ButtonVisibility {
+export class ButtonVisibility {
 	ok: boolean;
 	yes: boolean;
 	no: boolean;

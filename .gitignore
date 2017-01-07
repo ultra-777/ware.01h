@@ -2,4 +2,5 @@
 dist/
 node_modules/
 temp/
+npm-debug.*
 server/configuration.json

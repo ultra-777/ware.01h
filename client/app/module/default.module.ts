@@ -13,6 +13,7 @@ import { RootExceptionHandler } from '../root-exception-handler';
 
 import * as Modal from '../ui/window/index';
 import * as MessageBox from '../ui/message-box/index';
+import * as Preloader from '../ui/preloader/index';
 import * as DefaultView from '../component/default-view/index';
 
 
@@ -49,7 +50,8 @@ const appRoutes: Routes = [
 		RootComponent,
 		Modal.DECLARATION,
 		DefaultView.DECLARATION,
-		MessageBox.DECLARATION
+		MessageBox.DECLARATION,
+		Preloader.DECLARATION
 	],
 	bootstrap: [ RootComponent ]
 })

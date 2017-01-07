@@ -1,0 +1,24 @@
+﻿@import '../../../less/mixins';
+
+.preloader-component {
+	.size-box-absolute(0,0,0,0);
+	.flexbox-display();
+	.flexbox-direction(row);
+	.flexbox-justify-content(center);
+	.flexbox-align-items(center);
+	background: transparent;
+	color: black !important;
+
+	.preloader-border{
+		display: flex;
+		align-items: center;
+		border: 1px solid #9bbbe3;
+		padding: 10px 20px;
+		box-shadow: 0 0 2px #9bbbe3;
+		background-color:white;
+
+		img {
+			padding-right: 10px;
+		}
+	}
+}
