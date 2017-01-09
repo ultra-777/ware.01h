@@ -6,7 +6,7 @@ var copyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
   entry: {
-      'main': './temp/app/main.ts'
+      'main': './temp/app/main-aot.ts'
   },
 
   output: {

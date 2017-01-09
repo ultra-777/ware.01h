@@ -22,7 +22,7 @@
     }
 
     module.exports = {
-        entry: './temp/app/main.js',
+        entry: './temp/app/main-aot.js',
         dest: config.targetRoot + '/application.js',
         sourceMap: (process.env.ENV_NODE === config.ENV_DEVELOPMENT) ? true : false,
         format: 'iife',

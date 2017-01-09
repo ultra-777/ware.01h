@@ -8,7 +8,7 @@
 			node_modules,
 			scripts,
 			libs,
-            mainFileName,
+			mainAotFileName,
 			modulesFolderName,
 			commonConfig = require('../common/config'),
 			wwwRoot = this;
@@ -37,7 +37,7 @@
 		};
 
         rootFolderName = 'client';
-        mainFileName = 'main.ts';
+		mainAotFileName = 'main-aot.ts';
 		modulesFolderName = 'modules';
         sourcesRoot = './' + rootFolderName;
         node_modules = './node_modules';
@@ -61,7 +61,7 @@
 
 		wwwRoot.common = {
             rootFolderName: rootFolderName,
-			mainFileName: mainFileName
+			mainAotFileName: mainAotFileName
 		};
 
 		wwwRoot.source = {

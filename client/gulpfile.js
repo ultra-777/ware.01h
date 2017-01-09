@@ -304,7 +304,7 @@
 
         gulp.task(taskSwitchMode, function (cb) {
             if (process.env.ENV_NODE === common.ENV_DEVELOPMENT) {
-                return gulp.src(config.temp.application + '/' + config.common.mainFileName)
+                return gulp.src(config.temp.application + '/' + config.common.mainAotFileName)
                     .pipe(gulpReplace('// conditional_compilation_anchor', ''))
                     .pipe(gulp.dest(config.temp.application));
             }
@@ -333,7 +333,7 @@
 
 		gulp.task(taskUpdateMainWithBuild, function () {
 			console.log();
-			return gulp.src(config.temp.application + '/' + config.common.mainFileName)
+			return gulp.src(config.temp.application + '/' + config.common.mainAotFileName)
 				.pipe(applyBuildModuleTemplate(common.targetModuleFactoryPostfix))
 				.pipe(gulp.dest(config.temp.application));
 		});
